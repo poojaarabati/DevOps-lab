@@ -1,0 +1,24 @@
+const { Builder, By, Key } = require("selenium-webdriver");
+
+async function runTest() {
+    // 1. Open Chrome Browser
+    let driver = await new Builder().forBrowser("chrome").build();
+
+    try {
+        // 2. Go to Google
+        await driver.get("https://www.google.com");
+
+        // 3. Type a search term and press Enter
+        let searchBox = await driver.findElement(By.name("q"));
+        await searchBox.sendKeys("Selenium JavaScript", Key.RETURN);
+
+        // 4. Get and print page title for testing check
+        let title = await driver.getTitle();
+        console.log("Page title is: " + title);
+    } finally {
+        // 5. Close the browser
+        await driver.quit();
+    }
+}
+
+runTest();
